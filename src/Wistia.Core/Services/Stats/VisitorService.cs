@@ -18,7 +18,14 @@ namespace Wistia.Core.Services.Stats
         {
         }
 
-        public async Task<List<VisitorStat>> GetBySearchTerm(string term)
+        public List<VisitorStat> GetBySearchTerm(string term)
+        {
+            var task = GetBySearchTermAsync(term);
+            task.Wait();
+            return task.Result;
+        }
+
+        public async Task<List<VisitorStat>> GetBySearchTermAsync(string term)
         {
             var request = new RestRequest(ServiceKey + string.Format("/visitors.json?search={0}", term), HttpMethod.Get) { ContentType = ContentTypes.Json };
             var authInfo = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("api:{0}", ApiKey)));
@@ -26,7 +33,15 @@ namespace Wistia.Core.Services.Stats
             return await ExecuteAsync<List<VisitorStat>>(request);
         }
 
-        public async Task<List<VisitorStatEvent>> GetVisitoryEvents(string visitorKey)
+        public List<VisitorStatEvent> GetVisitorStatEvents(string visitorKey)
+        {
+            var task = GetVisitorEventsAsync(visitorKey);
+            task.Wait();
+            return task.Result;
+
+        }
+
+        public async Task<List<VisitorStatEvent>> GetVisitorEventsAsync(string visitorKey)
         {
             var request = new RestRequest(ServiceKey + string.Format("/events.json?visitor_key={0}", visitorKey), HttpMethod.Get) { ContentType = ContentTypes.Json };
             var authInfo = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("api:{0}", ApiKey)));
@@ -34,7 +49,14 @@ namespace Wistia.Core.Services.Stats
             return await ExecuteAsync<List<VisitorStatEvent>>(request);
         }
 
-        public async Task<VisitorStatEventDetail> GetVisitoryEventDetails(string eventKey)
+        public VisitorStatEventDetail GetVisitorStatEventDetail(string eventKey)
+        {
+            var task = GetVisitorEventDetailsAsync(eventKey);
+            task.Wait();
+            return task.Result;
+        }
+
+        public async Task<VisitorStatEventDetail> GetVisitorEventDetailsAsync(string eventKey)
         {
             var request = new RestRequest(ServiceKey + string.Format("/events/{0}.json", eventKey), HttpMethod.Get) { ContentType = ContentTypes.Json };
             var authInfo = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("api:{0}", ApiKey)));

@@ -54,7 +54,7 @@ namespace Wistia.Core.Services.Stats
         /// </summary>
         /// <param name="mediaId">The id of the media object</param>
         /// <returns>The media stats</returns>
-        public async Task<MediaStats> Get(int mediaId)
+        public async Task<MediaStats> Get(string mediaId)
         {
             var request = new RestRequest(ServiceKey + $"/medias/{mediaId}.json", HttpMethod.Get) { ContentType = ContentTypes.Json };
             SetAuthorization(request);

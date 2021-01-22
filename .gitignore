@@ -153,3 +153,4 @@ $RECYCLE.BIN/
 /src/Wistia.Core.Tests/HiddenSettings.config
 /.JustCode/Wistia.NET.solution-user.settings.xml
 *.bat
+/.vs/Wistia.NET/v16/Server/sqlite3

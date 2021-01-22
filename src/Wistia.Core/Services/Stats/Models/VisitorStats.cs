@@ -30,6 +30,7 @@
 
 using System;
 using System.Reflection;
+using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace Wistia.Core.Services.Stats.Models
@@ -141,6 +142,7 @@ namespace Wistia.Core.Services.Stats.Models
         public string Type { get; set; }
     }
 
+    [XmlRoot("EducationAccessEvent")]
     public partial class VisitorStatEvent
     {
 

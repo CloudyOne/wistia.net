@@ -42,7 +42,18 @@ namespace Wistia.Core.Services.Data
 
         public async Task<List<Media>> All()
         {
-            return await GetRequest<List<Media>>("medias.json");
+            var allMedia = new List<Media>();
+            var lastPull = false;
+            var page = 0;
+            while (!lastPull)
+            {
+                var tempmedia = await GetRequest<List<Media>>($"medias.json?page={page}");
+                allMedia.AddRange(tempmedia);
+                page++;
+                if (tempmedia.Count < 100)
+                    lastPull = true;
+            }
+            return allMedia;
         }
 
         public async Task<Media> GetById(string id)

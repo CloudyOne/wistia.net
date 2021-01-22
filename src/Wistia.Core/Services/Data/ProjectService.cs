@@ -42,7 +42,18 @@ namespace Wistia.Core.Services.Data
 
         public async Task<List<Project>> All()
         {
-            return await GetRequest<List<Project>>("projects.json");
+            var allProject = new List<Project>();
+            var lastPull = false;
+            var page = 0;
+            while (!lastPull)
+            {
+                var tempmedia = await GetRequest<List<Project>>($"projects.json?page={page}");
+                allProject.AddRange(tempmedia);
+                page++;
+                if (tempmedia.Count < 100)
+                    lastPull = true;
+            }
+            return allProject;
         }
   
         public async Task<Project> GetById(string hashedProjectId)

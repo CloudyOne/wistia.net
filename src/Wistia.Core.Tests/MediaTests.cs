@@ -30,14 +30,14 @@ namespace Wistia.Core.Tests
         public async Task CanGetSearchStats()
         {
             // Act
-            var results = await _statsClient.Visitor.GetBySearchTerm("ceo@myrenatus.com");
+            var results = await _statsClient.Visitor.GetBySearchTermAsync("");
             var events = new List<VisitorStatEvent>();
             foreach (var result in results)
             {
-                var _events = await _statsClient.Visitor.GetVisitoryEvents(result.VisitorKey);
+                var _events = await _statsClient.Visitor.GetVisitorEventsAsync(result.VisitorKey);
                 foreach (var _event in _events)
                 {
-                    var _detail = await _statsClient.Visitor.GetVisitoryEventDetails(_event.EventKey);
+                    var _detail = await _statsClient.Visitor.GetVisitorEventDetailsAsync(_event.EventKey);
                     _event.Detail = _detail;
                     events.Add(_event);
                 }
@@ -72,7 +72,7 @@ namespace Wistia.Core.Tests
             Assert.IsNotNull(firstMedia);
 
             // Act
-            var result = await _statsClient.Media.Get(firstMedia.id);
+            var result = await _statsClient.Media.Get(firstMedia.id.ToString());
 
             // Assert
             Assert.IsNotNull(result);
